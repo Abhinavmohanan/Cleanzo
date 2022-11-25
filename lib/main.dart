@@ -1,6 +1,6 @@
+import 'package:cleanzo/screens/Schedule.dart';
 import 'package:flutter/material.dart';
-
-import 'screens/HomePage.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,20 +13,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Cleanzo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
+        appBarTheme:
+            const AppBarTheme(systemOverlayStyle: SystemUiOverlayStyle.dark),
+        primaryColor: const Color.fromARGB(255, 92, 198, 240),
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Cleanzo'),
     );
   }
 }
@@ -50,68 +44,206 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  int _bottomIndex = 0;
 
-  void _incrementCounter() {
+  void _onBottomTap(int index) {
+    print("Bottom Nav");
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
+      _bottomIndex = index;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            HomePage(),
-            const Text(
-              'You have pushed the button this many times:',
+      // appBar: AppBar(
+      //   systemOverlayStyle:
+      //       const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
+      //   backgroundColor: Colors.transparent,
+      //   elevation: 0,
+      //   title: Text(widget.title,
+      //       style: const TextStyle(
+      //           color: Colors.black,
+      //           fontFamily: 'Poppins',
+      //           fontWeight: FontWeight.w700)),
+      // ),
+      body: Stack(children: [
+        Container(
+            height: 100,
+            width: 200,
+            decoration: BoxDecoration(
+              color: Colors.blue.withOpacity(0.3),
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(100),
+                bottomRight: Radius.circular(100),
+              ),
+            )),
+        Container(
+            height: 200,
+            width: 100,
+            decoration: BoxDecoration(
+              color: Colors.blue.withOpacity(0.3),
+              borderRadius: const BorderRadius.only(
+                topRight: Radius.circular(100),
+                bottomRight: Radius.circular(100),
+              ),
+            )),
+        Column(
+          children: [
+            const SizedBox(
+              height: 55,
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            Container(
+              margin: const EdgeInsets.only(left: 20),
+              height: 100,
+              width: double.infinity,
+              child: Text(widget.title,
+                  style: const TextStyle(
+                      fontSize: 22,
+                      color: Colors.black,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w700)),
             ),
+            const SizedBox(
+              height: 20,
+            ),
+            Container(
+              alignment: Alignment.center,
+              child: const Image(
+                  image: AssetImage('assets/images/HomePage/Agent.png')),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  margin: const EdgeInsets.all(20),
+                  child: ElevatedButton(
+                      style: ButtonStyle(
+                          elevation: MaterialStateProperty.all(8),
+                          backgroundColor: MaterialStateProperty.all(
+                              const Color.fromARGB(255, 92, 198, 240)),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0),
+                          ))),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (ctxt) => const Scheduler()));
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        child: Column(
+                          children: [
+                            Container(
+                              height: 40,
+                              child: const Image(
+                                  image: AssetImage(
+                                      "assets/images/HomePage/pickup.png")),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            const Text(
+                              "Schedule Pickup",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: 'Roboto',
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ],
+                        ),
+                      )),
+                ),
+                Container(
+                    margin: const EdgeInsets.all(20),
+                    child: ElevatedButton(
+                        style: ButtonStyle(
+                            elevation: MaterialStateProperty.all(8),
+                            backgroundColor: MaterialStateProperty.all(
+                                const Color.fromARGB(255, 92, 198, 240)),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                            ))),
+                        onPressed: () {},
+                        child: Container(
+                          padding: const EdgeInsets.all(8),
+                          child: Column(
+                            children: [
+                              Container(
+                                  height: 40,
+                                  child: const Icon(Icons.pin_drop,
+                                      size: 35, color: Colors.black)),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              const Text(
+                                "Collection Centre",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: 'Roboto',
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ],
+                          ),
+                        ))),
+              ],
+            ),
+            Container(
+                margin: const EdgeInsets.all(20),
+                child: ElevatedButton(
+                    style: ButtonStyle(
+                        elevation: MaterialStateProperty.all(8),
+                        backgroundColor: MaterialStateProperty.all(
+                            Color.fromARGB(255, 92, 198, 240)),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ))),
+                    onPressed: () {},
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      child: Column(
+                        children: [
+                          Container(
+                            height: 40,
+                            child: const Image(
+                                image: AssetImage(
+                                    'assets/images/HomePage/segregate.png')),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          const Text(
+                            "Waste Segregation",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ],
+                      ),
+                    ))),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+      ]),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.calendar_month), label: "Upcoming Pickup"),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile")
+        ],
+        selectedItemColor: const Color.fromARGB(255, 92, 198, 240),
+        currentIndex: _bottomIndex,
+        onTap: _onBottomTap,
       ),
     );
   }
