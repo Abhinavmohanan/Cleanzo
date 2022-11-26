@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "821845512670",
+    "project_id": "cleanzo-369713",
+    "storage_bucket": "cleanzo-369713.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:821845512670:android:ba84a7bc52a61afb30cd4f",
+        "android_client_info": {
+          "package_name": "com.example.cleanzo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "821845512670-5upmn0nhb0leqi63bdm6ag2lmi3ssiu1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cleanzo",
+            "certificate_hash": "fedb91d0b2451adaf319672530804a4d6f6e0fcc"
+          }
+        },
+        {
+          "client_id": "821845512670-t1n6m0cj1jt792u5o951u5ij89p7di79.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsFjZW9emeIoOpIgrBTNr2tL4af4J_3F0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "821845512670-t1n6m0cj1jt792u5o951u5ij89p7di79.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
