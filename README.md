@@ -1,4 +1,4 @@
-# cleanzo
+# Cleanzo
 
 The one Home-waste management app you will ever need.
 
